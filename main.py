@@ -12,6 +12,7 @@ import os
 from POTD_Scrapper import scrapPOTD
 from POTD_Solution import POTDSolution
 import asyncio
+from server import keep_alive
 
 
 dotenv.load_dotenv()
@@ -246,4 +247,6 @@ async def on_ready():
     await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name="with your feelings"))
     POTD.start()
 
-bot.run(TOKEN)
+if __name__ == "__main__":
+    keep_alive()
+    bot.run(TOKEN)
