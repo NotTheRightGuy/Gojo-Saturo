@@ -16,7 +16,7 @@ import asyncio
 
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN")
-DEV_CHANNEL_ID = int(os.getenv("DEV_CHANNEL"))
+POTD = int(os.getenv("POTD_CHANNEL"))
 TIME_ZONE = os.getenv("TIME_ZONE")
 
 
@@ -200,14 +200,6 @@ async def unmute(ctx: nextcord.Interaction, user: nextcord.Member):
 # ------------------- COMMANDS ! ------------------- #
 
 @bot.command()
-async def sendtochannel(ctx, text: str):
-    user = ctx.author
-    print(f"{user} issued the command !sendtochannel")
-    channel = bot.get_channel(DEV_CHANNEL_ID)
-    await channel.send(text)
-
-
-@bot.command()
 async def slap(ctx, members: commands.Greedy[nextcord.Member], *, reason='no reason'):
     user = ctx.author
     print(f"{user} issued the command !slap")
@@ -222,7 +214,7 @@ async def POTD():
     print("POTD task started")
     POTD = scrapPOTD()
     solution = POTDSolution(POTD["id"])
-    channel = bot.get_channel(DEV_CHANNEL_ID)
+    channel = bot.get_channel(POTD)
     embed = Embed(
         title="Leetcode | Problem of the Day | " + POTD["date"], color=0xff0000, url=POTD["link"])
     embed.set_thumbnail(url="https://i.ibb.co/2MRPBBw/ASPDC.jpg")
