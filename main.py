@@ -7,18 +7,15 @@ import datetime
 import pytz
 import random
 import time
-import dotenv
 import os
 from POTD_Scrapper import scrapPOTD
 from POTD_Solution import POTDSolution
 import asyncio
 from server import keep_alive
 
-
-dotenv.load_dotenv()
-TOKEN = os.getenv("TOKEN")
-POTD = int(os.getenv("POTD_CHANNEL"))
-TIME_ZONE = os.getenv("TIME_ZONE")
+TOKEN = os.environ.get("TOKEN")
+POTD = int(os.environ.get("POTD_CHANNEL"))
+TIME_ZONE = os.environ.get("TIME_ZONE")
 
 
 intents = nextcord.Intents.default()

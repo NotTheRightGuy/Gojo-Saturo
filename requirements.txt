@@ -3,5 +3,4 @@ requests
 pytz
 asyncio
 flask
-dotenv
 beautifulsoup4
