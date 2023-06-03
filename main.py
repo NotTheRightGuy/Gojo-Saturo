@@ -251,7 +251,7 @@ async def POTD():
 
 @POTD.before_loop
 async def before_POTD():
-    hour, minute = 13, 20
+    hour, minute = 13, 25
     await bot.wait_until_ready()
     now = datetime.datetime.now()
     future = datetime.datetime(now.year, now.month, now.day, hour, minute)
