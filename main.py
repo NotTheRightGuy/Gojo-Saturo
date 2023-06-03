@@ -12,7 +12,6 @@ import dotenv
 from POTD_Scrapper import scrapPOTD
 from POTD_Solution import POTDSolution
 import asyncio
-from server import keep_alive
 
 dotenv.load_dotenv()
 
