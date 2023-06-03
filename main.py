@@ -223,14 +223,14 @@ async def POTD():
     embed.add_field(name=POTD["id"], value=POTD["title"], inline=False)
     embed.set_footer(text="Happy Coding!")
     await channel.send(embed=embed)
-    await asyncio.sleep(28800)
+    await asyncio.sleep(100)
     print("POTD solution task started")
     await channel.send(solution)
 
 
 @POTD.before_loop
 async def before_POTD():
-    hour, minute = 7, 00
+    hour, minute = 1, 20
     await bot.wait_until_ready()
     now = datetime.datetime.now()
     future = datetime.datetime(now.year, now.month, now.day, hour, minute)
