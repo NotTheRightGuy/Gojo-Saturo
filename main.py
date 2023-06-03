@@ -249,5 +249,6 @@ async def on_ready():
     POTD.start()
 
 if __name__ == "__main__":
+    print(f"Current time is {datetime.datetime.now()}")
     keep_alive()
     bot.run(TOKEN)
