@@ -21,7 +21,7 @@ POTD_CHANNEL = int(os.environ.get("DEV_CHANNEL"))
 TIME_ZONE = os.environ.get("TIME_ZONE")
 
 # Time at which POTD needs to be posted
-hour, minute = 13, 28
+hour, minute = 13, 40
 
 # Converts time to IST To UTC
 
@@ -39,6 +39,7 @@ def convert_to_utc(hour, minute):
 
 
 hour, minute = convert_to_utc(hour, minute)
+print(hour, minute)
 
 # ! Setup Logging Properly
 
@@ -251,7 +252,6 @@ async def POTD():
 
 @POTD.before_loop
 async def before_POTD():
-    hour, minute = 13, 35
     await bot.wait_until_ready()
     now = datetime.datetime.now()
     future = datetime.datetime(now.year, now.month, now.day, hour, minute)
@@ -270,5 +270,6 @@ async def on_ready():
     POTD.start()
 
 if __name__ == "__main__":
+    print(f"Current Time : {datetime.datetime.now()}")
     keep_alive()
     bot.run(TOKEN)
