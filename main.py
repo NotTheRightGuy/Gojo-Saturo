@@ -8,15 +8,19 @@ import pytz
 import random
 import time
 import os
+import dotenv
 from POTD_Scrapper import scrapPOTD
 from POTD_Solution import POTDSolution
 import asyncio
 from server import keep_alive
 
+dotenv.load_dotenv()
+
 TOKEN = os.environ.get("TOKEN")
-POTD = int(os.environ.get("POTD_CHANNEL"))
+POTD_CHANNEL = int(os.environ.get("DEV_CHANNEL"))
 TIME_ZONE = os.environ.get("TIME_ZONE")
 
+# ! Setup Logging Properly
 
 intents = nextcord.Intents.default()
 intents.members = True
@@ -212,7 +216,7 @@ async def POTD():
     print("POTD task started")
     POTD = scrapPOTD()
     solution = POTDSolution(POTD["id"])
-    channel = bot.get_channel(POTD)
+    channel = bot.get_channel(POTD_CHANNEL)
     embed = Embed(
         title="Leetcode | Problem of the Day | " + POTD["date"], color=0xff0000, url=POTD["link"])
     embed.set_thumbnail(url="https://i.ibb.co/2MRPBBw/ASPDC.jpg")
@@ -220,13 +224,13 @@ async def POTD():
     embed.set_footer(text="Happy Coding!")
     await channel.send(embed=embed)
     await asyncio.sleep(28800)
+    print("POTD solution task started")
     await channel.send(solution)
 
 
 @POTD.before_loop
 async def before_POTD():
-    hour = 7
-    minute = 00
+    hour, minute = 7, 00
     await bot.wait_until_ready()
     now = datetime.datetime.now()
     future = datetime.datetime(now.year, now.month, now.day, hour, minute)
@@ -241,7 +245,7 @@ async def before_POTD():
 async def on_ready():
     print(f"{bot.user} is ready to fight!")
     print("------")
-    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.watching, name="with your feelings"))
+    await bot.change_presence(activity=nextcord.Activity(type=nextcord.ActivityType.playing, name="with your feelings"))
     POTD.start()
 
 if __name__ == "__main__":
