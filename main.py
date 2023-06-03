@@ -17,11 +17,11 @@ from server import keep_alive
 dotenv.load_dotenv()
 
 TOKEN = os.environ.get("TOKEN")
-POTD_CHANNEL = int(os.environ.get("DEV_CHANNEL"))
+POTD_CHANNEL = int(os.environ.get("POTD_CHANNEL"))
 TIME_ZONE = os.environ.get("TIME_ZONE")
 
 # Time at which POTD needs to be posted
-hour, minute = 13, 40
+hour, minute = 7, 00
 
 # Converts time to IST To UTC
 
@@ -235,7 +235,8 @@ async def slap(ctx, members: commands.Greedy[nextcord.Member], *, reason='no rea
 
 @tasks.loop(hours=24)
 async def POTD():
-    print("POTD task started")
+    print(
+        f"POTD task started : {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())}")
     POTD = scrapPOTD()
     solution = POTDSolution(POTD["id"])
     channel = bot.get_channel(POTD_CHANNEL)
@@ -245,8 +246,9 @@ async def POTD():
     embed.add_field(name=POTD["id"], value=POTD["title"], inline=False)
     embed.set_footer(text="Happy Coding!")
     await channel.send(embed=embed)
-    await asyncio.sleep(100)
-    print("POTD solution task started")
+    await asyncio.sleep(25200)
+    print(
+        f"POTD Solution started : {time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())}")
     await channel.send(solution)
 
 
@@ -270,6 +272,5 @@ async def on_ready():
     POTD.start()
 
 if __name__ == "__main__":
-    print(f"Current Time : {datetime.datetime.now()}")
     keep_alive()
     bot.run(TOKEN)
