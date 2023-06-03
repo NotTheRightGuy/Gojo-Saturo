@@ -2,6 +2,5 @@ nextcord
 requests
 pytz
 asyncio
-flask
 python-dotenv
 beautifulsoup4
