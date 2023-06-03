@@ -24,7 +24,21 @@ TIME_ZONE = os.environ.get("TIME_ZONE")
 hour, minute = 13, 28
 
 # Converts time to IST To UTC
-hour, minute = hour - 5, minute - 30
+
+
+def convert_to_utc(hour, minute):
+    ist_timezone = pytz.timezone('Asia/Kolkata')
+    utc_timezone = pytz.timezone('UTC')
+    current_datetime_ist = datetime.datetime.now(ist_timezone)
+    target_datetime_ist = current_datetime_ist.replace(
+        hour=hour, minute=minute, second=0, microsecond=0)
+    target_datetime_utc = target_datetime_ist.astimezone(utc_timezone)
+    utc_hour = target_datetime_utc.hour
+    utc_minute = target_datetime_utc.minute
+    return utc_hour, utc_minute
+
+
+hour, minute = convert_to_utc(hour, minute)
 
 # ! Setup Logging Properly
 
@@ -256,6 +270,5 @@ async def on_ready():
     POTD.start()
 
 if __name__ == "__main__":
-    print(f"Current time is {datetime.datetime.now()}")
     keep_alive()
     bot.run(TOKEN)
