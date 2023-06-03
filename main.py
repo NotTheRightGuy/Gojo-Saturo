@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands, tasks
 from nextcord import Embed
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime
 import datetime
 import pytz
 import random
@@ -40,9 +40,6 @@ def convert_to_utc(hour, minute):
 
 hour, minute = convert_to_utc(hour, minute)
 print(hour, minute)
-
-# ! Setup Logging Properly
-
 
 intents = nextcord.Intents.default()
 intents.members = True
@@ -272,5 +269,4 @@ async def on_ready():
     POTD.start()
 
 if __name__ == "__main__":
-    keep_alive()
     bot.run(TOKEN)
