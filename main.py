@@ -20,7 +20,14 @@ TOKEN = os.environ.get("TOKEN")
 POTD_CHANNEL = int(os.environ.get("DEV_CHANNEL"))
 TIME_ZONE = os.environ.get("TIME_ZONE")
 
+# Time at which POTD needs to be posted
+hour, minute = 13, 28
+
+# Converts time to IST To UTC
+hour, minute = hour - 5, minute - 30
+
 # ! Setup Logging Properly
+
 
 intents = nextcord.Intents.default()
 intents.members = True
